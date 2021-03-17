@@ -38,12 +38,12 @@ describe('if there are not words guessed', () => {
 describe('if there are words guessed', () => {
     let wrapper;
     const guessedWords = [
-        {guessedWord: 'train', letterMatchCount: 3},
-        {guessedWord: 'agile', letterMatchCount: 1},
-        {guessedWord: 'party', letterMatchCount: 5},
+        { guessedWord: 'train', letterMatchCount: 3 },
+        { guessedWord: 'agile', letterMatchCount: 1 },
+        { guessedWord: 'party', letterMatchCount: 5 },
     ];
     beforeEach(() => {
-        wrapper = setup({ guessedWords});
+        wrapper = setup({ guessedWords });
     })
     test('render without error', () => {
         const component = findByTestAttr(wrapper, 'component-guessed-words');
@@ -56,5 +56,20 @@ describe('if there are words guessed', () => {
     test('correct number of guessed words', () => {
         const guessedWordsNode = findByTestAttr(wrapper, 'guessed-word');
         expect(guessedWordsNode.length).toBe(guessedWords.length);
+    });
+});
+
+describe('languagePicker', () => {
+    test('correctly renders guess instructions string in English by default', () => {
+        const wrapper = setup({ guessedWords: [] });
+        const guessInstructions = findByTestAttr(wrapper, 'guess-instructions');
+        expect(guessInstructions.text()).toBe('Try to guess the secret word!');
+    });
+    test('correctly renders guess instructions string in emoji', () => {
+        const mockUseContext = jest.fn().mockReturnValue('emoji');
+        React.useContext = mockUseContext;
+        const wrapper = setup({ guessedWords: [] });
+        const guessInstructions = findByTestAttr(wrapper, 'guess-instructions');
+        expect(guessInstructions.text()).toBe('🤔🤫🔤')
     });
 });
