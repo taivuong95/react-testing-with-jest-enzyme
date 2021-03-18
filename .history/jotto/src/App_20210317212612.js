@@ -4,7 +4,6 @@ import "./App.css";
 import hookActions from "./actions/hookActions";
 import languageContext from "./contexts/languageContext";
 import successContext from "./contexts/successContext";
-import guessedWordsContext from "./contexts/guessedWordsContext";
 import LanguagePicker from "./LanguagePicker";
 import Input from "./Input";
 import Congrats from "./Congrats";
@@ -55,14 +54,14 @@ function App() {
       <h1>Jotto</h1>
       <languageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
-        <guessedWordsContext.GuessedWordsProvider>
         <successContext.SuccessProvider>
           <Congrats success={true} />
           <Input secretWord={state.secretWord} />
-          </successContext.SuccessProvider>
-          <GuessedWords/>
-          </guessedWordsContext.GuessedWordsProvider>
+        </successContext.SuccessProvider>
       </languageContext.Provider>
+      <GuessedWords
+        guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
+      />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { findByTestAttr } from '../test/testUtils';
 import Congrats from './Congrats';
 import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
+
 
 const setup = ({ success, language }) => {
     // const setUpProps = { ...defaultProps, ...props };
@@ -13,9 +13,7 @@ const setup = ({ success, language }) => {
 
     return mount(
         <languageContext.Provider value={language}>
-            <successContext.SuccessProvider value={[success, jest.fn()]}>
-                <Congrats />
-            </successContext.SuccessProvider>
+            <Congrats />
         </languageContext.Provider>
     )
 }
